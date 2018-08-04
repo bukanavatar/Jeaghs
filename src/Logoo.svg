@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no"?><!-- Generator: Gravit.io -->
+<svg xmlns="http://www.w3.org/2000/svg" style="isolation:isolate" viewBox="0 0 500 500" width="500" height="500">
+    <defs>
+        <clipPath id="_clipPath_N3TsNQ7XNuXTB4EpNaZcx4UEtGUcmj1e">
+            <rect width="500" height="500"/>
+        </clipPath>
+    </defs>
+    <g clip-path="url(#_clipPath_N3TsNQ7XNuXTB4EpNaZcx4UEtGUcmj1e)">
+        <path d=" M 346.017 35.652 Q 387.89 121.564 431.207 156.939 C 475.141 192.818 451.422 228.412 423.266 238.519 C 395.11 248.627 370.563 257.29 351.793 279.671 C 333.022 302.051 310.642 338.149 283.929 352.588 C 257.49 366.879 223.286 370.636 190.076 366.305 C 159.285 362.288 139.39 350.87 147.481 326.597 C 156.144 300.607 195.13 319.378 226.895 296.997 C 258.661 274.617 281.042 217.583 245.666 69.583"
+              fill="none" vector-effect="non-scaling-stroke" stroke-width="25" stroke="rgb(0,0,0)"
+              stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"/>
+        <path d=" M 371.133 163.826 Q 401.133 181.826 382.133 198.826" fill="none" vector-effect="non-scaling-stroke"
+              stroke-width="10" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="round"
+              stroke-miterlimit="3"/>
+        <path d=" M 430.449 302.744 C 447.996 313.363 458 325.621 458 338.67 C 458 379.164 361.662 412.039 243 412.039 C 124.338 412.039 28 379.164 28 338.67 C 28 306.469 88.92 279.086 173.537 269.217"
+              fill="none" vector-effect="non-scaling-stroke" stroke-width="25" stroke="rgb(0,0,0)"
+              stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"/>
+    </g>
+</svg>
