@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css?family=ABeeZee');
+
+body {
+    background: #efefef;
+    font-family: 'ABeeZee', sans-serif;
+}
+
+.App {
+
+}
+
+.App-logo {
+    height: 60px;
+}
+
+.Card {
+    width: 100%;
+    min-height: 100px;
+    background: white;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 10px 20px rgba(204, 204, 204, 0.3);
+    /*display: flex;*/
+}
+
+.mainCard {
+    margin-left: 20px;
+    color: dimgrey;
+}
+
+.topCard {
+    min-height: 4px;
+    background: rgb(139, 199, 209);
+    background: linear-gradient(90deg, rgba(139, 199, 209, 1) 0%, rgba(196, 224, 229, 1) 100%);
+}
+
+.containerMain {
+
+}
+
+.header {
+    background: rgb(139, 199, 209);
+    background: linear-gradient(90deg, rgba(139, 199, 209, 1) 0%, rgba(196, 224, 229, 1) 100%);
+    padding: 20px;
+    color: white;
+    /* -webkit-clip-path: circle(74.0% at 48% 0);
+    clip-path: circle(80% at 48% 0); */
+    width: 100%;
+}
+
+.App-title {
+    font-size: 2.5em;
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    font-family: 'ABeeZee', sans-serif;
+    letter-spacing: 0.2em;
+    margin-left: 27px;
+
+}
+
+.App-intro {
+    font-size: large;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
