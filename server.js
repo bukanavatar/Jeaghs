@@ -11,7 +11,7 @@ const io = socketIo(server);
 io.on("connection", socket => {
     console.log("New client connected"), setInterval(
         () => getApiAndEmit(socket),
-        10000
+        1000
     );
     socket.on("disconnect", () => console.log("Client disconnected"));
 });
@@ -22,23 +22,30 @@ const getApiAndEmit = async socket => {
             method: 'post',
             url: 'https://api.thinger.io/oauth/token',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
             data: bodyText
         });
+        // console.log(getToken.data.access_token);
         let token = "Bearer " + getToken.data.access_token + "";
         const res = await axios({
             method: 'get',
-            url: 'https://api.thinger.io/v2/users/ikhsan/devices/esp32/date',
+            url: 'https://api.thinger.io/v2/users/ikhsan/devices/esp32/bangun',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer '
+                'Authorization': token
             }
         });
-        console.log(res.json());
-        socket.emit("FromAPI", res);
-    } catch (error) {
-        console.error(`Error: ${error.code}`);
+        // const res = await axios.get(
+        //     "https://jsonplaceholder.typicode.com/posts/1"
+        // );
+        console.log(res.data.out);
+        let json = JSON.parse(JSON.stringify(res.data));
+        socket.emit("FromAPI", json);
+    } catch (e) {
+        console.log(e);
     }
+
+
 };
 server.listen(port, () => console.log(`Listening on port ${port}`));

@@ -17,16 +17,17 @@ class App extends Component {
             text: '',
             accessToken: '',
             alarmList: [],
-            response: false,
+            response: '',
             endpoint: 'http://127.0.0.1:4001'
         };
     }
 
     componentDidMount() {
+        //Socket IO
         const {endpoint} = this.state;
         const socket = socketIOClient(endpoint);
-        socket.on("FromAPI", data => this.setState({response: data}));
-
+        socket.on("FromAPI", data => this.setState({response: JSON.parse(JSON.stringify(data))}));
+        //Get Token
         let bodyText = "grant_type=password&username=ikhsan&password=ikhsan95";
         fetch('https://api.thinger.io/oauth/token', {
             method: 'POST',
@@ -82,7 +83,7 @@ class App extends Component {
 
     render() {
         const {response} = this.state;
-
+        console.log(response);
         return (
             <div className="Main">
                 <header className="header">
@@ -91,7 +92,7 @@ class App extends Component {
                 </header>
                 <div className="container containerMain">
                     <h4>Status</h4>
-                    {response ? <p>Halo: {response}</p> : <p>Loading...</p>}
+                    {response ? <p>{response.out}</p> : <p>Loading...</p>}
                     <h3>Alarm List</h3>
                     <Grid>
                         <Row>
