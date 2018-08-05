@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import { TimePicker, Button } from 'antd';
+import {TimePicker} from 'antd';
 // import { TimePicker } from 'antd';
-import moment from 'moment';
 import logo from '../logo2.png';
-import {Button, FormControl, FormGroup, Grid, Modal, Row} from 'react-bootstrap';
+import {Grid, Row} from 'react-bootstrap';
 import './App.css';
 import ListAlarm from './ListAlarm';
 import socketIOClient from 'socket.io-client';
@@ -15,27 +14,10 @@ function onChange(time, timeString) {
     // console.log(moment.i);
   }
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-        this.handleChangeClock = this.handleChangeClock.bind(this);
-        this.handleText = this.handleText.bind(this);
-        this.state = {
-            show: false,
-            text: '',
-            accessToken: '',
-            alarmList: [],
-            response: false,
-            endpoint: 'http://127.0.0.1:4001',
-            open: false,
-            value: '',
-            // message: '',
-            isAlarmSet: false
-            response: '',
-            endpoint: 'http://127.0.0.1:4001'
-        };
-    }
+    onChange = (moment) => {
+        // console.log(moment.format("HH:mm"));
+        this.setState({text: moment.format("HH:mm")});
+    };
 
     componentDidMount() {
         //Socket IO
@@ -64,10 +46,25 @@ class App extends Component {
         })
     }
 
-    onChange = (moment) => {
-        // console.log(moment.format("HH:mm"));
-        this.setState({ text: moment.format("HH:mm") });
-      }
+    constructor(props) {
+        super(props);
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleChangeClock = this.handleChangeClock.bind(this);
+        this.handleText = this.handleText.bind(this);
+        this.state = {
+            show: false,
+            text: '',
+            accessToken: '',
+            alarmList: [],
+            open: false,
+            value: '',
+            // message: '',
+            isAlarmSet: false,
+            response: '',
+            endpoint: 'http://127.0.0.1:4001'
+        };
+    }
 
     handleChangeClock(moment) {
         this.setState({
@@ -120,7 +117,7 @@ class App extends Component {
                 <div className="container containerMain ">
                     <div style={{marginTop: '50px', paddingLeft: window.innerWidth < 768? '1em' : '0'}} >
                         <h3 >Status</h3>
-                        {response ? <p>Halo: {response}</p> : <p>Loading...</p>}
+                        {response ? <p>{response.out}</p> : <p>Loading...</p>}
                     </div>
                     <div style={{marginTop: '50px', paddingLeft: window.innerWidth < 768? '1em' : '0'}} >
                         <h3  style={{marginTop: '35px'}}>Add alarm</h3>
