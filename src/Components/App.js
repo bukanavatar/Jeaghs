@@ -1,10 +1,19 @@
 import React, {Component} from 'react';
+import { TimePicker, Button } from 'antd';
+// import { TimePicker } from 'antd';
+import moment from 'moment';
 import logo from '../logo2.png';
 import {Button, FormControl, FormGroup, Grid, Modal, Row} from 'react-bootstrap';
 import './App.css';
 import ListAlarm from './ListAlarm';
 import socketIOClient from 'socket.io-client';
 
+const format = 'HH:mm';
+
+function onChange(time, timeString) {
+    console.log(time, timeString);
+    // console.log(moment.i);
+  }
 class App extends Component {
     constructor(props) {
         super(props);
@@ -17,6 +26,12 @@ class App extends Component {
             text: '',
             accessToken: '',
             alarmList: [],
+            response: false,
+            endpoint: 'http://127.0.0.1:4001',
+            open: false,
+            value: '',
+            // message: '',
+            isAlarmSet: false
             response: '',
             endpoint: 'http://127.0.0.1:4001'
         };
@@ -49,8 +64,19 @@ class App extends Component {
         })
     }
 
-    handleChangeClock(e) {
-        e.preventDefault();
+    onChange = (moment) => {
+        // console.log(moment.format("HH:mm"));
+        this.setState({ text: moment.format("HH:mm") });
+      }
+
+    handleChangeClock(moment) {
+        this.setState({
+            text: moment.format("HH:mm"),
+            // message: 'Your alarm has set!',
+            isAlarmSet: true,
+         });
+        console.log(this.state.accessToken);
+        // e.preventDefault();
         console.log(this.state.text);
         let bodyText = '{"in":"' + this.state.text + '"}';
         let token = 'Bearer ' + this.state.accessToken + '';
@@ -83,6 +109,7 @@ class App extends Component {
 
     render() {
         const {response} = this.state;
+        const {message} = this.state;
         console.log(response);
         return (
             <div className="Main">
@@ -90,36 +117,56 @@ class App extends Component {
                     <img src={logo} className="App-logo" alt="logo"/>
                     {/* <h1 className="App-title h1">Welcome </h1> */}
                 </header>
-                <div className="container containerMain">
-                    <h4>Status</h4>
-                    {response ? <p>{response.out}</p> : <p>Loading...</p>}
-                    <h3>Alarm List</h3>
-                    <Grid>
-                        <Row>
-                            {this.state.alarmList.map(a =>
-                                <ListAlarm/>
-                            )}
-                        </Row>
-                    </Grid>
-                    {/*Modal*/}
-                    <p onClick={this.handleShow} style={{cursor: 'pointer'}}>Add Alarm</p>
-                    <Modal show={this.state.show} onHide={this.handleClose}>
-                        <Modal.Body>
-                            <form onSubmit={this.handleChangeClock}>
-                                <FormGroup>
-                                    <FormControl
-                                        value={this.state.text}
-                                        onChange={this.handleText}
-                                    />
-                                    <Button bsStyle="primary" type="submit">Submit</Button>
-                                </FormGroup>
-                            </form>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button onClick={this.handleClose}>Close</Button>
-                        </Modal.Footer>
-                    </Modal>
-                    {/*End of Modal*/}
+                <div className="container containerMain ">
+                    <div style={{marginTop: '50px', paddingLeft: window.innerWidth < 768? '1em' : '0'}} >
+                        <h3 >Status</h3>
+                        {response ? <p>Halo: {response}</p> : <p>Loading...</p>}
+                    </div>
+                    <div style={{marginTop: '50px', paddingLeft: window.innerWidth < 768? '1em' : '0'}} >
+                        <h3  style={{marginTop: '35px'}}>Add alarm</h3>
+                        <Grid>
+                            <Row>
+                                {this.state.alarmList.map(a =>
+                                    <ListAlarm/>
+                                )}
+                            </Row>
+                        </Grid>
+                        {/*Modal*/}
+                        {/* <p onClick={this.handleShow} style={{cursor: 'pointer'}}>Add Alarm</p> */}
+                        {/* <TimePicker onChange={onChange} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />, */}
+                        <TimePicker  format={format} onChange={this.handleChangeClock} />
+
+                        {/* <Modal show={this.state.show} onHide={this.handleClose}> */}
+                            {/* <Modal.Body> */}
+                                {/* <TimePicker defaultValue={moment('12:08', format)} format={format} onChange={this.handleChangeClock}/>, */}
+                                {/* <form onSubmit={this.handleChangeClock}>
+                                    <FormGroup>
+                                        <FormControl
+                                            value={this.state.text}
+                                            onChange={this.handleText}
+                                        />
+                                        <Button bsStyle="primary" type="submit">Submit</Button>
+                                    </FormGroup>
+                                </form> */}
+                                {/* <TimePicker
+                                    disabledSeconds
+                                    open={this.state.open}
+                                    onOpenChange={this.handleOpenChange}
+                                    addon={() => (
+                                        <Button size="small" type="primary" onClick={this.handleClose}>
+                                            Ok
+                                        </Button>
+                                        )}
+                                /> */}
+                                {/* <TimePicker defaultValue={moment('12:08', format)} format={format} onChange={this.handleChangeClock}/> */}
+                            {/* </Modal.Body> */}
+                            {/* <Modal.Footer>
+                                <Button onClick={this.handleClose}>Close</Button>
+                            </Modal.Footer>
+                        </Modal> */}
+                        {/*End of Modal*/}
+                        <p className="text-success pt-5"  style={{marginTop: '10px'}}>{this.state.isAlarmSet? 'Your alarm is set! ' : ''}</p>
+                    </div>
                 </div>
             </div>
         );
